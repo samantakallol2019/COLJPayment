@@ -1,0 +1,152 @@
+﻿body {
+    font-size: 14px;
+    font-family: Arial,sans-serif;
+    line-height: 1.5em;
+}
+
+.pay-progress {
+    counter-reset: step;
+    list-style-type: none;
+}
+
+.pay-progress {
+    padding: 0;
+}
+
+.pay-progress li a:before {
+    counter-increment: step;
+    display: inline-block;
+    width: 2em;
+    left: 0;
+    border-radius: 50%;
+    background: #eee;
+    content: counter(step);
+    text-align: center;
+    font-size: 18px;
+    line-height: 2em;
+    color: #fff;
+}
+
+.pay-progress li.active a:before {
+    background-color: #92268C;
+}
+
+.pay-progress li a {
+    display: block;
+    line-height: 1.1em;
+    position: relative;
+    text-decoration: none;
+    color: #666;
+}
+
+.pay-progress li.active a {
+    color: #92268C;
+}
+
+.pay-progress li.active a:hover {
+    text-decoration: underline
+}
+
+.pay-progress li a span {
+    display: inline;
+}
+
+.pay-progress li a {
+float:left;
+margin: 0 10px;
+padding: 0 10px;
+}
+
+.checklist {
+    background: #F4F8DE;
+}
+
+.payments-panel {
+    background: #efefef
+}
+
+.required {
+    color: red;
+}
+
+.aw-title {
+    color: #92268C
+}
+
+.payments-panel .form-control:focus {
+  border-color: #BE7DBC;
+}
+
+@media (max-width: 610px) {
+  .hidden-mobile {
+    display: none !important;
+  }
+}
+
+button#btnReturn
+ {
+    display: inline-block;
+	width: auto;
+	margin: 0 0 1em 0;
+	padding: 8px 10px;
+	border-radius: 3px;
+    font-size: 13px;
+	color: #fff;
+	text-decoration: none;
+	white-space: normal;
+	font-size: 16px;
+	line-height: 120%;
+	cursor: pointer;
+    position: relative;
+}
+
+.payments-panel button[type="submit"],
+.print-receipt
+{
+	display: inline-block;
+	width: auto;
+	border: 1px solid #0073BC;
+	margin: 0 0 1em 0;
+	padding: 8px 10px;
+	border-radius: 3px;
+	background: #409ED4;
+    font-size: 13px;
+	background: -webkit-linear-gradient(top, #409ED4 0%, #0173BC 100%);
+	background: linear-gradient(to bottom, #409ED4 0%, #0173BC 100%);
+	color: #fff;
+	text-decoration: none;
+	white-space: normal;
+	font-size: 16px;
+	line-height: 120%;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#409ED4', endColorstr='#0173BC',GradientType=0);
+	cursor: pointer;
+	position: relative;
+}
+
+.payments-panel button[type="submit"]:hover,
+.print-receipt:hover
+{
+	border-color: #08569B;
+	background: #0073BC;
+	color: #fff;
+	text-decoration: none;
+}
+
+.invalid {
+    color: red;
+    border-color: red;
+}
+
+.valid {
+    border-color: green;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.hbd {
+    display: none;
+}

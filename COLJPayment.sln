@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "COLJPayment", "flex-microform-sample\COLJPayment.csproj", "{8664E36A-7BEF-4EF8-90E2-51F42FC8D192}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "COLJFunction", "COLJFunction\COLJFunction.csproj", "{3ACE4E03-A489-484B-A005-BABB7C29B6D1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8664E36A-7BEF-4EF8-90E2-51F42FC8D192}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8664E36A-7BEF-4EF8-90E2-51F42FC8D192}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8664E36A-7BEF-4EF8-90E2-51F42FC8D192}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8664E36A-7BEF-4EF8-90E2-51F42FC8D192}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ACE4E03-A489-484B-A005-BABB7C29B6D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ACE4E03-A489-484B-A005-BABB7C29B6D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ACE4E03-A489-484B-A005-BABB7C29B6D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ACE4E03-A489-484B-A005-BABB7C29B6D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E7A8D1B7-AB23-47BB-9158-7C430524F243}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,234 @@
+﻿@{ var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    var jwkJson = jss.Serialize(ViewBag.Jwk); }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Inflow Payment Details</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">*@
+    @*<link rel="stylesheet" href="~/Content/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">*@
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/css/web-payments-theme.min.css" rel="stylesheet" />
+
+    <style>
+
+        #number-container, #securityCode-container {
+            height: 38px;
+        }
+
+        .flex-microform-focused {
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+
+        .checkboxbtn {
+            padding-left: 5px;
+        }
+
+        .checkboxfield {
+            padding-left: 20px;
+        }
+
+        .headingtxt {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .mandatoryicon {
+            color: red;
+        }
+
+        .headertxt {
+            font-size: 20px;
+            color: #92268c;
+            font-weight: bold;
+        }
+
+        .cardfield {
+            width: 65%;
+        }
+
+        .expfield {
+            width: 67%;
+        }
+
+        .digitaltxt {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .expdate {
+            width: 45%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-xs-12 col-lg-4" style="width:59%">
+                <div class="panel payments-panel">
+                    <div class="panel-body" style="padding-top: 0">
+                        <h3 class="aw-title">Card Details</h3>
+                        <div id="errors-output" role="alert"></div>
+                        <form action="../../Home/Receipt" id="my-sample-form" method="post">
+                            <div class="row">
+                                <div class="col-xs-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="frmCardNameOnCard" class="mandatory-label"><em class="required">*</em>Name on Card</label>
+                                        <input type="text" class="form-control" id="cardholderName" name="frmCardNameOnCard" placeholder="Name on Card">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="CardNumber" class="mandatory-label"><em class="required">*</em>Card Number</label>
+                                        <div id="number-container" class="form-control" style="width:100%"></div>
+                                        @*<input type="text" class="form-control" id="number-container" name="CardNumber" placeholder="Card Number">*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-lg-6">
+                                    <label for="ExpiryMonth" class="mandatory-label form-group-below"><em class="required">*</em>Expiry Date</label>
+                                    <div class="form-group label-above">
+                                        <div class="col-xs-6 expdate" style="padding: 0">
+                                            <select id="expMonth" name="ExpiryMonth" class="form-control" required>
+                                                <option value="" disabled selected>Select Month</option>
+                                                @for (var i = 1; i <= 12; i++)
+                                                {
+                                    <option>@i.ToString("00")</option>
+}
+
+
+                                            </select><i class="icon-down-arrow hbd"></i>
+                                        </div>
+                                        <div class="col-xs-6" style="padding: 0">
+                                            <select id="expYear" name="ExpiryYear" class="form-control" required>
+                                                <option value="" disabled selected>Select Year</option>
+                                                @for (var i = DateTime.Now.Year; i <= DateTime.Now.Year + 10; i++)
+                                                {
+                                    <option>@i.ToString("0000")</option>
+}
+                                            </select><i class="icon-down-arrow hbd"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top: 10px">
+                                <div class="col-xs-12 col-lg-6" style="width:100%">
+                                    <div class="form-group">
+                                        <label for="SecurityCode" class="mandatory-label"><em class="required">*</em>Security Code</label>
+                                        <small>(The 3 digits after the card number on the signature panel of your card)</small>
+                                        @*<div class="row">
+                                            <div class="col-xs-6 col-lg-4">*@
+                                        <div id="securityCode-container" class="form-control cardfield" style="width:47%"></div>
+                                        @*<input type="text" class="form-control" id="securityCode-container" name="SecurityCode" placeholder="Security Code">*@
+                                        @*</div>
+                                            </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-content:flex-end">
+                                <button type="button" id="cancel-button" class="btn btn-primary">Cancel</button>
+                                <button type="button" id="reset-button" class="btn btn-primary">Reset</button>
+                                <button type="button" id="pay-button" class="btn btn-primary">Pay Now</button>
+                                <input type="hidden" id="flexresponse" name="flexresponse">
+                            </div>
+                        </form>
+                        <div id="resp">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://flex.cybersource.com/cybersource/assets/microform/0.11/flex-microform.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+    <script>
+    // JWK is set up on the server side route for /
+
+    var form = document.querySelector('#my-sample-form');
+    var payButton = document.querySelector('#pay-button');
+    var flexResponse = document.querySelector('#flexresponse');
+    var expMonth = document.querySelector('#expMonth');
+    var expYear = document.querySelector('#expYear');
+    var errorsOutput = document.querySelector('#errors-output');
+
+
+    // the capture context that was requested server-side for this transaction
+        var captureContext = @Html.Raw(jwkJson);
+        console.log("captureContext : ", captureContext)
+
+    // custom styles that will be applied to each field we create using Microform
+    var myStyles = {
+        'input': {
+            'font-size': '14px',
+            'font-family': 'helvetica, tahoma, calibri, sans-serif',
+            'color': '#555'
+        },
+        ':focus': { 'color': 'blue' },
+        ':disabled': { 'cursor': 'not-allowed' },
+        'valid': { 'color': '#3c763d' },
+        'invalid': { 'color': '#a94442' }
+    };
+
+    // setup
+    var flex = new Flex(captureContext);
+    var microform = flex.microform({ styles: myStyles });
+    var number = microform.createField('number', { placeholder: 'Enter card number' });
+    var securityCode = microform.createField('securityCode', { placeholder: '•••' });
+
+    number.load('#number-container');
+    securityCode.load('#securityCode-container');
+
+
+    payButton.addEventListener('click', function () {
+        var options = {
+            expirationMonth: expMonth.value,
+            expirationYear: expYear.value
+        };
+
+        debugger;
+        microform.createToken(options, function (err, token) {
+            if (err) {
+                // handle error
+                console.error(err);
+                errorsOutput.textContent = err.message;
+            } else {
+                // At this point you may pass the token back to your server as you wish.
+                // In this example we append a hidden input to the form and submit it.
+                console.log(JSON.stringify(token));
+                //flexResponse.value = JSON.stringify(token);
+                var obj = { flexResponse: JSON.stringify(token) }
+                $.ajax({
+                    url: "https://paymentorchestratorfunction.azurewebsites.net/api/OrchestrationFunction_HttpStart?default=GpZ1L1YRPCxidIa3GzrhvdvMxKQFnNUPDytOeNc9FLdiBRZNDNWyQw==",
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    data: JSON.stringify(obj),
+                    success: function (resp) {
+                        var test = resp[0].EntityName;
+                        console.log("Response from Orchestrator : ", resp);
+                        //form.submit();              
+                        document.getElementById("resp").innerText = JSON.stringify(resp);
+                    },
+                    error: function (resp) {
+                        var test = resp[0].EntityName;
+                        console.log("Custom O/P Entity Type : ", test);
+                        //form.submit();
+                    }
+                });
+
+                //form.submit();
+            }
+        });
+    });
+    </script>
+
+</body>
+</html>
